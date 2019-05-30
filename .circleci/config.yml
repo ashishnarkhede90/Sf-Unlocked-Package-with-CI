@@ -13,6 +13,10 @@ jobs:
       - run:
           name: Authorize Sf org
           command: . build/authorize-org.sh
+      
+      - run:
+          name: Push source and test
+          command: . build/test.sh
 
 workflows:
   version: 2
@@ -23,3 +27,5 @@ workflows:
             branches:
               ignore:
                 - master
+                - packaging
+        
