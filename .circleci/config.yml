@@ -17,11 +17,21 @@ jobs:
       - run:
           name: Authenticate DevHub
           command: . build/authorize-org.sh
+      - persist_to_workspace:
+          # This is an important step. If we don't store the project data (cloned GitHub source and node_modules from the CLI installation)
+          # we'd have to re-run installation for every workflow step.
+          #
+          # Also this step is crucial as we use it to share sfdx config parameters between steps.
+          root: ~/
+          paths:
+              - .sfdx/*
+              - project/*
 
   create_scratch_org:
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Create scratch org
           command: . build/create_scratch_org.sh
@@ -29,12 +39,16 @@ jobs:
   build_source:
     <<: *defaults 
     steps:
+    - attach_workspace:
+          at: ~/
       - run:
           name: Push source and run all tests
           command: . build/test.sh
 
   create_package:
     <<: *defaults
+    - attach_workspace:
+          at: ~/
     steps:
       - run:
           name: Create package
