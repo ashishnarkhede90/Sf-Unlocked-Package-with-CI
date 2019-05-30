@@ -39,7 +39,7 @@ jobs:
   build_source:
     <<: *defaults 
     steps:
-    - attach_workspace:
+      - attach_workspace:
           at: ~/
       - run:
           name: Push source and run all tests
