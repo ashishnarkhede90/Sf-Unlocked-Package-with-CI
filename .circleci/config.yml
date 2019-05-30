@@ -1,11 +1,11 @@
 version: 2
+
+#default values for all jobs
+defaults: &defaults
+  docker:
+    - image: circleci/node:latest
+
 jobs:
-
-  #default values for all jobs
-  defaults: &defaults
-    docker:
-      - image: circleci/node:latest
-
   setup_dx:
     <<: *defaults # call default at the start of each job
     steps:
