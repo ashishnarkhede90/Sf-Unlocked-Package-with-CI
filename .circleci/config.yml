@@ -1,31 +1,55 @@
 version: 2
 jobs:
-  build:
+
+  #default values for all jobs
+  defaults: &defaults
     docker:
       - image: circleci/node:latest
-    
+
+  setup_dx:
+    <<: *defaults # call default at the start of each job
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: . build/install.sh
+        name: Install SFDX CLI
+        command: . build/install.sh
       
       - run:
-          name: Authorize Sf org
-          command: . build/authorize-org.sh
-      
+        name: Authenticate DevHub
+        command: . build/authorize-org.sh
+
+  create_scratch_org:
+    <<: *defaults
+    steps:
+        - run:
+          name: Create scratch org
+          command: . build/create-scratch-org.sh
+  
+  build_source:
+    <<: *defaults 
+    steps:
       - run:
-          name: Push source and test
-          command: . build/test.sh
+        name: Push source and run all tests
+        command: . build/test.sh
 
 workflows:
   version: 2
   validate:
     jobs:
-      - build:
+      - setup_dx:
           filters:
             branches:
-              ignore:
-                - master
+              only:
+                - /feature-.*/
+                - /packaging-.*/
                 - packaging
+                - develop
+      - build_source:
+          requires:
+            - setup_dx # setting up sfdx is necessary to push the source to scratch org
+            - create_scratch_org
+          filters:
+            branches:
+              only:
+                - /feature-.*/
         
