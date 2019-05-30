@@ -2,3 +2,4 @@
 .vscode
 server.key
 server.crt
+server.key.text

@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: . build/install.sh
+      
+      - run:
+          name: Authorize Sf org
+          command: . build/authorize-org.sh
+
+workflows:
+  version: 2
+  validate:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
