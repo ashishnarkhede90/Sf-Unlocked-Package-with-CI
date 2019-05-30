@@ -21,9 +21,9 @@ jobs:
   create_scratch_org:
     <<: *defaults
     steps:
-        - run:
-          name: Create scratch org
-          command: . build/create-scratch-org.sh
+      - run:
+        name: Create scratch org
+        command: . build/create-scratch-org.sh
   
   build_source:
     <<: *defaults 
