@@ -47,9 +47,9 @@ jobs:
 
   create_package:
     <<: *defaults
-    - attach_workspace:
-          at: ~/
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           name: Create package
           command: . build/create_package.sh
