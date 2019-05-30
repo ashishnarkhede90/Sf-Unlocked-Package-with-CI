@@ -1,2 +1,4 @@
 .sfdx
 .vscode
+server.key
+server.crt
