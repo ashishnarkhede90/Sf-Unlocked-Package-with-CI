@@ -26,7 +26,7 @@ jobs:
           paths:
               - .sfdx/*
               - project/*
-              - node_modules
+              - /usr/local/lib/node_modules
 
   create_scratch_org:
     <<: *defaults
