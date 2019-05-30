@@ -11,33 +11,33 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install SFDX CLI
-        command: . build/install.sh
+          name: Install SFDX CLI
+          command: . build/install.sh
       
       - run:
-        name: Authenticate DevHub
-        command: . build/authorize-org.sh
+          name: Authenticate DevHub
+          command: . build/authorize-org.sh
 
   create_scratch_org:
     <<: *defaults
     steps:
       - run:
-        name: Create scratch org
-        command: . build/create-scratch-org.sh
+          name: Create scratch org
+          command: . build/create-scratch-org.sh
   
   build_source:
     <<: *defaults 
     steps:
       - run:
-        name: Push source and run all tests
-        command: . build/test.sh
+          name: Push source and run all tests
+          command: . build/test.sh
 
   create_package:
     <<: *defaults
     steps:
       - run:
-        name: Create package
-        command: . build/create_package.sh
+          name: Create package
+          command: . build/create_package.sh
 
 workflows:
   version: 2
