@@ -42,11 +42,16 @@ workflows:
               only:
                 - /feature-.*/
                 - /packaging-.*/
-                - packaging
-                - develop
+      - create_scratch_org:
+          requires:
+            - setup_dx
+          filters:
+            branches:
+              only:
+                - /feature-.*/
+                - /packaging-.*/
       - build_source:
           requires:
-            - setup_dx # setting up sfdx is necessary to push the source to scratch org
             - create_scratch_org
           filters:
             branches:
