@@ -4,4 +4,5 @@ pwd
 ls -l
 cd /usr/local/lib/node_modules
 ls -l
-sfdx force:org:create -f config/project-scratch-def.json -a ${CIRCLE_BRANCH} -s
+/usr/local/lib/node_modules/sfdx-cli/bin/run force:org:create -f config/project-scratch-def.json -a ${CIRCLE_BRANCH} -s
+#sfdx force:org:create -f config/project-scratch-def.json -a ${CIRCLE_BRANCH} -s
