@@ -2,6 +2,6 @@
 echo "Creating a scratch org"
 pwd
 ls -l
-cd node_modules/sfdx-cli/bin/run
+cd /usr/local/lib/node_modules
 ls -l
 sfdx force:org:create -f config/project-scratch-def.json -a ${CIRCLE_BRANCH} -s
