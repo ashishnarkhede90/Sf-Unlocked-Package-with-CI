@@ -32,6 +32,13 @@ jobs:
         name: Push source and run all tests
         command: . build/test.sh
 
+  create_package:
+    <<: *defaults
+    steps:
+      - run:
+        name: Create package
+        command: . build/create_package.sh
+
 workflows:
   version: 2
   validate:
@@ -57,4 +64,11 @@ workflows:
             branches:
               only:
                 - /feature-.*/
+      - create_package:
+          requires:
+            - create_scratch_org
+          filters:
+            branches:
+              only:
+                - /packaging-.*/
         
