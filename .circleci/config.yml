@@ -27,18 +27,11 @@ jobs:
               - .sfdx/*
               - project/*
 
-      - persist_to_workspace:
-          root: /usr/local/lib/
-          paths:
-              - node_modules
-
   create_scratch_org:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
-      - attach_workspace:
-          at: /usr/local/lib/
       - run:
           name: Create scratch org
           command: . build/create_scratch_org.sh
@@ -48,8 +41,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - attach_workspace:
-          at: /usr/local/lib/
+      - run:
+          name: Install SFDX CLI
+          command: . build/install.sh
       - run:
           name: Push source and run all tests
           command: . build/test.sh
@@ -59,8 +53,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - attach_workspace:
-          at: /usr/local/lib/
+      - run:
+          name: Install SFDX CLI
+          command: . build/install.sh
       - run:
           name: Create package
           command: . build/create_package.sh
