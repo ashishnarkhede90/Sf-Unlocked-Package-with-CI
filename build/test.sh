@@ -1,3 +1,5 @@
+echo "List orgs..."
+sfdx force:org:list --noprompt
 echo "Pushing code to scratch org..."
 sfdx force:source:push -u ${CIRCLE_BRANCH}
 echo "Run all tests in scratch org..."
